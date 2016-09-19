@@ -36,6 +36,9 @@ public class CityFinder {
 	private static final String GEO_POSITION_KEY = "geo_position";
 	
 	private static final Map<String, BiFunction<JSONObject, Object, String>> KEY_FUNCTION_MAP;
+	/**
+	 * A list of keys to be able to iterate through the keys of the map in the order of insertion.
+	 */
 	private static final List<String> KEYS;
 	static {
 		BiFunction<JSONObject, Object, String> defaultFunction = (jsonObj, key) -> {
@@ -49,9 +52,11 @@ public class CityFinder {
 		
 		Map<String, BiFunction<JSONObject, Object, String>> tmpMap = new HashMap<>();
 		List<String> tmpKeys = new ArrayList<>();
+		
+		// Add a new field by adding its key to the map and list
+		// e.g. addToMapAndList(tmpMap, tmpKeys, "country", defaultFunction);
 		addToMapAndList(tmpMap, tmpKeys, "_id", defaultFunction);
 		addToMapAndList(tmpMap, tmpKeys, NAME_KEY, defaultFunction);
-		//addToMapAndList(tmpMap, tmpKeys, "country", defaultFunction);
 		addToMapAndList(tmpMap, tmpKeys, "type", defaultFunction);
 		addToMapAndList(tmpMap, tmpKeys, "latitude", geoPositionFunction);
 		addToMapAndList(tmpMap, tmpKeys, "longitude", geoPositionFunction);
